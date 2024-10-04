@@ -8,9 +8,9 @@ app.use(express.static('public'));
 
 // API endpoint to get request header information
 app.get('/api/whoami', (req, res) => {
-    const ipAddress = req.ip || req.connection.remoteAddress;
-    const language = req.acceptsLanguages()[0];
-    const software = req.get('User-Agent');
+    const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const language = req.acceptsLanguages()[0] || 'unknown';
+    const software = req.get('User-Agent') || 'unknown';
 
     res.json({
         ipaddress: ipAddress,
