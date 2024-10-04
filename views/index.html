@@ -1,36 +1,102 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-    <title>Request Header Parser</title>
-    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <link href="style.css" rel="stylesheet" type="text/css">
+  <title>Request Header Parser</title>
+  <link rel="shortcut icon"
+    href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+    type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      text-align: left;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      background: #28a745;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Request Header Parser Microservice</h1>
-        <h2>Example Usage:</h2>
-        <p>
-            <a href="/api/whoami">[base url]/api/whoami</a>
-        </p>
-        <h2>Example Output:</h2>
-        <p id="output">
-            <code>{"ipaddress":"","language":"","software":""}</code>
-        </p>
-        <button id="getInfo">Get My Info</button>
-    </div>
-    <div class="footer">
-        <p>by <a href="https://www.freecodecamp.org">freeCodeCamp</a></p>
-    </div>
-    <script>
-        document.getElementById('getInfo').onclick = function() {
-            fetch('/api/whoami')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerHTML = 
-                        JSON.stringify(data, null, 2).replace(/\\/g, '');
-                });
-        };
-    </script>
+  <div class="container">
+    <h1>Request Header Parser Microservice</h1>
+
+    <h2>Example Usage:</h2>
+    <p>
+      <a href="/api/whoami">[base url]/api/whoami</a>
+    </p>
+
+    <h2>Example Output:</h2>
+    <p id="output">
+      <code>{"ipaddress":"192.168.1.1","language":"en-US","software":"Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}</code>
+    </p>
+    <button id="getInfo">Get My Info</button>
+  </div>
+  <div class="footer">
+    <p>
+      by <a href="https://www.freecodecamp.org" style="color: #fff;">freeCodeCamp</a>
+    </p>
+  </div>
+  <script>
+    document.getElementById('getInfo').onclick = function () {
+      fetch('/api/whoami')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('output').innerHTML =
+            JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          document.getElementById('output').innerHTML =
+            'Error fetching data.';
+          console.error('Error:', error);
+        });
+    };
+  </script>
 </body>
+
 </html>
